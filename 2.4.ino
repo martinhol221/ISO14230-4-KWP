@@ -60,7 +60,7 @@ if (pac == 0) {
 // if  (n == 5)   myOLED.setFont(SmallFont), myOLED.print("EHO>", 35, 0), myOLED.update(); 
 
 if  (n == 12 /* && byte8 ==  "193"*/)   {  // ждем инициализхации шины
-                                        myOLED.setFont(SmallFont), myOLED.print("83 F1 10 C1 E9 8F BD ", 0, 50), myOLED.update(); 
+                                        myOLED.setFont(SmallFont), myOLED.print("83 F1 10 C1 E9 8F BD ", CENTER, 20), myOLED.update(); 
                                         Serial.flush();   
                                         for(int i=0;i<6;i++) Serial.write(temp1_obd[i]), delay (10);  
                                         delay(100);
