@@ -99,8 +99,8 @@ if  (n == 12 /* && paramert2 ==  "193"*/) {  // успешная инициал�
                                           }
   if (n == 13  && paramert2 ==  "13" )    {  
     s = String(byfer[11],DEC);
-    Temp2 = s.toInt();
-    myOLED.setFont(SmallFont), myOLED.printNumI(Temp2, 90, 30),myOLED.update();
+    SPEED = s.toInt();
+    myOLED.setFont(SmallFont), myOLED.printNumI(SPEED, 90, 30),myOLED.update();
                                           }
                                           
         }
