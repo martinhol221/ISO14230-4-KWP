@@ -52,10 +52,8 @@ if (pac == 0) {
   for (int i=0;i<n;i++) byfer[i]=Serial.read();
   myOLED.setFont(SmallFont), myOLED.print("byte: ", 0, 10), myOLED.printNumI(n, 30, 10);
   myOLED.print("packet: ", 0, 50), myOLED.printNumI(pac,0,80),myOLED.update(); 
-  String byte8 = String(byfer[8],DEC);
-  String byte10 = String(byfer[10],DEC);
-
-
+  String byte8 = String(byfer[8],DEC);   // С1 (HEX) = 193 (DEC) // С1 успешный ответ
+  String byte10 = String(byfer[10],DEC); // 05 HEX = 05 DEC, 0F HEX = 15 DEC, 0C HEX = 12 DEC, 0D HEX = 13 DEC
 
 // if  (n == 5)   myOLED.setFont(SmallFont), myOLED.print("EHO>", 35, 0), myOLED.update(); 
 
@@ -67,7 +65,7 @@ if  (n == 12 /* && byte8 ==  "193"*/)   {  // ждем инициализхац�
                                          }
 
                                           
- if (n == 13  && byte10 ==  "5" )       { // читаем температуру ОЖ двигателя
+ if (n == 13  && byte10 ==  "5" )       { // читаем температуру ОЖ двигателя из 12-го байта пакета
                                         s = String(byfer[11],DEC);
                                         Temp1 = s.toInt() - 40;  
                                         for(int i=0;i<6;i++) Serial.write(temp2_obd[i]), delay (10); 
@@ -75,7 +73,7 @@ if  (n == 12 /* && byte8 ==  "193"*/)   {  // ждем инициализхац�
                                         }
 
                                           
- if (n == 13  && byte10 ==  "15" )     {  // читаем температуру воздуха на впуске 
+ if (n == 13  && byte10 ==  "15" )     {  // читаем температуру воздуха на впуске из 12-го байта пакета
                                         s = String(byfer[11],DEC); 
                                         Temp2 = s.toInt() - 40; 
                                         for(int i=0;i<6;i++) Serial.write(pmm_obd[i]), delay (10);
@@ -83,7 +81,7 @@ if  (n == 12 /* && byte8 ==  "193"*/)   {  // ждем инициализхац�
                                        }
 
 
- if (n == 14  && byte10 ==  "12" )     {  // читаем обороты двигателя
+ if (n == 14  && byte10 ==  "12" )     {  // читаем обороты двигателя из 12-го и 13-го байта пакета
                                         s = String(byfer[11],DEC);
                                         int h = s.toInt();
                                         s = String(byfer[12],DEC);
@@ -91,9 +89,9 @@ if  (n == 12 /* && byte8 ==  "193"*/)   {  // ждем инициализхац�
                                         word PMM = word(h, l)/4;
                                         for(int i=0;i<6;i++) Serial.write(speed_obd[i]), delay (10);
                                         delay(100);  
-                                          }
+                                        }
                                           
-  if (n == 13  && byte10 ==  "13" )    {  // читаем скорость
+  if (n == 13  && byte10 ==  "13" )    {  // если  читаем скорость из 12-го байта пакета
                                         s = String(byfer[11],DEC);
                                         SPEED = s.toInt();
 
