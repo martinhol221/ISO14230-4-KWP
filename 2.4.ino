@@ -2,6 +2,8 @@
 OLED  myOLED(SDA, SCL, 8);
 extern uint8_t MediumNumbers[];
 extern uint8_t RusFont[];
+extern uint8_t SmallFont[];
+
 
 #define K_line_RX 0 
 #define K_line_TX 1 
@@ -46,7 +48,7 @@ if (pac == 0) {
  
   char byfer[30];
   n = Serial.available();
-  if (n > 0) {  pac++; Str = "";
+  if (n > 0) {  pac++;
   for (int i=0;i<n;i++) byfer[i]=Serial.read();
   myOLED.setFont(SmallFont), myOLED.print("byte: ", 0, 10), myOLED.printNumI(n, 30, 10);
   myOLED.print("packet: ", 0, 50), myOLED.printNumI(pac,0,80),myOLED.update(); 
