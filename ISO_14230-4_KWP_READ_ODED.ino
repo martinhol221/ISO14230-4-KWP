@@ -3,8 +3,6 @@ OLED  myOLED(SDA, SCL, 8);
 extern uint8_t MediumNumbers[];
 extern uint8_t RusFont[];
 extern uint8_t SmallFont[];
-
-
 #define K_line_RX 0 
 #define K_line_TX 1 
 int n; 
@@ -14,6 +12,7 @@ int PMM = 847;
 int SPEED = 0;
 String s;
 int pac =0;
+int tm = 10000;
 byte    init_obd[] = {0xC1,0x33,0xF1,0x81,0x66};      // инициализация K-line шины  C1 33 F1 81 66 
 byte     pmm_obd[] = {0xC2,0x33,0xF1,0x01,0x0C,0xF3}; // запрос оборотов двигателя  C2 33 F1 01 0C F3
 byte   temp1_obd[] = {0xC2,0x33,0xF1,0x01,0x05,0xEC}; // запрос температуры ож      C2 33 F1 01 05 EC
@@ -30,8 +29,14 @@ void setup()  {
 
 void loop(){  
    read_CAN();
+   tm--;
+   if (tm <0){
+    tm=10000;   
+    Serial.flush();   
+    for(int i=0;i<6;i++) Serial.write(temp1_obd[i]), delay (10);  
+    delay(100);
            } 
-
+}
 
 
 void read_CAN(){ 
@@ -50,21 +55,19 @@ if (pac == 0) {
   n = Serial.available();
   if (n > 0) {  pac++;
   for (int i=0;i<n;i++) byfer[i]=Serial.read();
-  myOLED.setFont(SmallFont), myOLED.print("byte: ", 0, 10), myOLED.printNumI(n, 30, 10);
-  myOLED.print("packet: ", 0, 50), myOLED.printNumI(pac,0,80),myOLED.update(); 
+  myOLED.setFont(RusFont), myOLED.print("ghbyznj ,fqn", 0, 10), myOLED.printNumI(n, 80, 10);
+  myOLED.print("Gfrtnjd", 0, 44), myOLED.printNumI(pac,60,44),myOLED.update(); 
   String byte8 = String(byfer[8],DEC);   // С1 (HEX) = 193 (DEC) // С1 успешный ответ
   String byte10 = String(byfer[10],DEC); // 05 HEX = 05 DEC, 0F HEX = 15 DEC, 0C HEX = 12 DEC, 0D HEX = 13 DEC
 
 // if  (n == 5)   myOLED.setFont(SmallFont), myOLED.print("EHO>", 35, 0), myOLED.update(); 
 
-if  (n == 12 /* && byte8 ==  "193"*/)   {  // ждем инициализхации шины
+if  (n == 12 && byte8 ==  "193")   {  // ждем инициализхации шины
                                         myOLED.setFont(SmallFont), myOLED.print("83 F1 10 C1 E9 8F BD ", CENTER, 20), myOLED.update(); 
                                         Serial.flush();   
                                         for(int i=0;i<6;i++) Serial.write(temp1_obd[i]), delay (10);  
                                         delay(100);
                                          }
-
-                                          
  if (n == 13  && byte10 ==  "5" )       { // читаем температуру ОЖ двигателя из 12-го байта пакета
                                         s = String(byfer[11],DEC);
                                         Temp1 = s.toInt() - 40;  
@@ -86,7 +89,7 @@ if  (n == 12 /* && byte8 ==  "193"*/)   {  // ждем инициализхац�
                                         int h = s.toInt();
                                         s = String(byfer[12],DEC);
                                         int l = s.toInt();
-                                        word PMM = word(h, l)/4;
+                                        PMM = word(h, l)/4;
                                         for(int i=0;i<6;i++) Serial.write(speed_obd[i]), delay (10);
                                         delay(100);  
                                         }
@@ -100,7 +103,7 @@ if  (n == 12 /* && byte8 ==  "193"*/)   {  // ждем инициализхац�
   myOLED.setFont(MediumNumbers);
   myOLED.printNumI(Temp1, RIGHT, 0), myOLED.printNumI(Temp2, RIGHT, 16),myOLED.printNumI(PMM, RIGHT, 32), myOLED.printNumI(SPEED, RIGHT, 48);
   myOLED.setFont(RusFont);
-  myOLED.print("NTVGTHFNEHF LDBU", LEFT, 4), myOLED.print("NTVGTHFNEHF DJPL", LEFT, 20),myOLED.print("J<JHJNS LDBU", LEFT, 36), myOLED.print("CRJHJCNM FDNJ", LEFT, 52);
+  myOLED.print("NTVGTHFNEHF LDBU", LEFT, 0), myOLED.print("NTVGTHFNEHF DJPL", LEFT, 20),myOLED.print("J<JHJNS LDBU", LEFT, 36), myOLED.print("CRJHJCNM FDNJ", LEFT, 54);
   myOLED.update();
   
 
