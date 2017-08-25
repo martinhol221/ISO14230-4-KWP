@@ -1,12 +1,8 @@
 #include <OLED_I2C.h>
 OLED  myOLED(SDA, SCL, 8);
-extern uint8_t BigNumbers[];
 extern uint8_t MediumNumbers[];
-extern uint8_t SmallFont[];
 extern uint8_t RusFont[];
 
-#include <SoftwareSerial.h>
-SoftwareSerial UART_FT232(7, 8); // RX, TX
 #define K_line_RX 0 
 #define K_line_TX 1 
 int n; 
@@ -21,7 +17,6 @@ byte     pmm_obd[] = {0xC2,0x33,0xF1,0x01,0x0C,0xF3}; // запрос оборо
 byte   temp1_obd[] = {0xC2,0x33,0xF1,0x01,0x05,0xEC}; // запрос температуры ож      C2 33 F1 01 05 EC
 byte   temp2_obd[] = {0xC2,0x33,0xF1,0x01,0x0F,0xF6}; // запрос температуры воздуха C2 33 F1 01 0F F6
 byte   speed_obd[] = {0xC2,0x33,0xF1,0x01,0x0D,0xF4}; // запрос скорости автомобиля C2 33 F1 01 0D F4
-String Str = "";
 
 void setup()  { 
   pinMode(K_line_RX, INPUT); 
@@ -32,7 +27,7 @@ void setup()  {
               } 
 
 void loop(){  
-//   read_CAN();
+   read_CAN();
            } 
 
 
@@ -46,7 +41,7 @@ if (pac == 0) {
   Serial.begin(10400);  // ------------_- ISO 14230-4 KWP 10.4 Kbaud
   for(int i=0;i<5;i++) Serial.write(init_obd[i]), delay (10); // отправляем команду инициализации K-line шины 
   delay(100);  
-  myOLED.setFont(SmallFont), myOLED.print("SEND>", 0, 0),myOLED.update(); 
+  myOLED.setFont(SmallFont), myOLED.print("SEND> C1 33 F1 81 66", 0, 0),myOLED.update(); 
                }
  
   char byfer[30];
@@ -63,7 +58,7 @@ if (pac == 0) {
 // if  (n == 5)   myOLED.setFont(SmallFont), myOLED.print("EHO>", 35, 0), myOLED.update(); 
 
 if  (n == 12 /* && byte8 ==  "193"*/)   {  // ждем инициализхации шины
-                                        myOLED.setFont(SmallFont), myOLED.print("INIT OK", 80, 0), myOLED.update(); 
+                                        myOLED.setFont(SmallFont), myOLED.print("83 F1 10 C1 E9 8F BD ", 0, 50), myOLED.update(); 
                                         Serial.flush();   
                                         for(int i=0;i<6;i++) Serial.write(temp1_obd[i]), delay (10);  
                                         delay(100);
