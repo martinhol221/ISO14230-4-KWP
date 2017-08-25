@@ -57,21 +57,21 @@ if (pac == 0) {
   myOLED.setFont(SmallFont), myOLED.printNumI(n, 0, 10),myOLED.update();
   myOLED.setFont(SmallFont), myOLED.printNumI(pac, 10, 40),myOLED.update(); 
   myOLED.setFont(SmallFont), myOLED.print(String(Str), 0, 20),myOLED.update(); 
- // String paramert = String(byfer[4],DEC);
- String paramert2 = String(byfer[10],DEC);
+ String byte8 = String(byfer[8],DEC);
+ String byte10 = String(byfer[10],DEC);
 
 
 
-if  (n == 5 /* &&  paramert ==  "102" */)   myOLED.setFont(SmallFont), myOLED.print("EHO>", 35, 0),myOLED.update(); 
+// if  (n == 5)   myOLED.setFont(SmallFont), myOLED.print("EHO>", 35, 0), myOLED.update(); 
 
-if  (n == 12 /* && paramert2 ==  "193"*/) {  // успешная инициализация
+if  (n == 12 && byte8 ==  "193") {  // успешная инициализация "C1"
     myOLED.setFont(SmallFont), myOLED.print("INIT OK", 80, 0), myOLED.update(); 
     Serial.flush();   
     for(int i=0;i<6;i++) Serial.write(temp1_obd[i]), delay (10);  
     delay(100);
                                           }
                                           
- if (n == 13  && paramert2 ==  "5" )      {  
+ if (n == 13  && byte10 ==  "5" )      { // "05"
     s = String(byfer[11],DEC); // 49 переводим в строковых 73
     Temp1 = s.toInt() - 40;  // 73 переводим в int и вычитаем 40 (по стандарту ODB ) получемм 33
     Serial.flush();
@@ -80,14 +80,14 @@ if  (n == 12 /* && paramert2 ==  "193"*/) {  // успешная инициал�
     delay(100);
                                           }
                                           
- if (n == 13  && paramert2 ==  "15" )     {  
+ if (n == 13  && byte10 ==  "15" )     {   
     s = String(byfer[11],DEC); // 49 переводим в строковых 73
     Temp2 = s.toInt() - 40;  // 73 переводим в int и вычитаем 40 (по стандарту ODB ) получемм 33
     myOLED.setFont(SmallFont), myOLED.printNumI(Temp2, 85, 40),myOLED.update();
     for(int i=0;i<6;i++) Serial.write(pmm_obd[i]), delay (10);
     delay(100);                           }
 
- if (n == 14  && paramert2 ==  "12" )     {  //
+ if (n == 14  && byte10 ==  "12" )     {  //
     s = String(byfer[11],DEC);
     int h = s.toInt();
     s = String(byfer[12],DEC);
@@ -97,7 +97,7 @@ if  (n == 12 /* && paramert2 ==  "193"*/) {  // успешная инициал�
     for(int i=0;i<6;i++) Serial.write(speed_obd[i]), delay (10);
     delay(100);  
                                           }
-  if (n == 13  && paramert2 ==  "13" )    {  
+  if (n == 13  && byte10 ==  "13" )    {  
     s = String(byfer[11],DEC);
     SPEED = s.toInt();
     myOLED.setFont(SmallFont), myOLED.printNumI(SPEED, 90, 30),myOLED.update();
