@@ -85,7 +85,7 @@ if  (n == 12 /* && paramert2 ==  "193"*/) {  // успешная инициал�
     Temp2 = s.toInt() - 40;  // 73 переводим в int и вычитаем 40 (по стандарту ODB ) получемм 33
     myOLED.setFont(SmallFont), myOLED.printNumI(Temp2, 85, 40),myOLED.update();
     for(int i=0;i<6;i++) Serial.write(pmm_obd[i]), delay (10);
-    delay(100);                                     }
+    delay(100);                           }
 
  if (n == 14  && paramert2 ==  "12" )     {  //
     s = String(byfer[11],DEC);
@@ -94,6 +94,13 @@ if  (n == 12 /* && paramert2 ==  "193"*/) {  // успешная инициал�
     int l = s.toInt();
     word PMM = word(h, l)/4;
     myOLED.setFont(SmallFont), myOLED.printNumI(PMM, 10, 50),myOLED.update();
+    for(int i=0;i<6;i++) Serial.write(speed_obd[i]), delay (10);
+    delay(100);  
+                                          }
+  if (n == 13  && paramert2 ==  "13" )    {  
+    s = String(byfer[11],DEC);
+    Temp2 = s.toInt();
+    myOLED.setFont(SmallFont), myOLED.printNumI(Temp2, 90, 30),myOLED.update();
                                           }
                                           
         }
