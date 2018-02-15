@@ -1,4 +1,4 @@
-#include <OLED_I2C.h>
+#include <OLED_I2C.h> //https://www.drive2.ru/c/479335393737572613/
 OLED  myOLED(SDA, SCL, 8);
 extern uint8_t MediumNumbers[];
 extern uint8_t RusFont[];
