@@ -4,6 +4,8 @@
 2. Температура воздуха во впускном коллекторе 
 3. Количество оборотов коленвала двигателя в минуту 
 4. Скорость автомобиля
+ 
+[Подробно о моих изысканиях читайте в посте на drive2.ru](https://www.drive2.ru/c/479335393737572613)
 
 Для инициализации начала обмена c ЭБУ двигателя необходимо подать следующую последовательность уровней на K-линию:
 HIGH (300ms), LOW (25ms), HIGH (25 ms), за тем на скорости 10400 необходимо отправить пять байт в HEX `C1 33 F1 81 66` с паузами между каждым байтом в 10ms. 
@@ -38,4 +40,4 @@ Example of an Arduino sketch for reading data from the K-line of the ODB car tir
 ![Citroen](https://github.com/martinhol221/ISO14230-4-KWP/blob/master/K-Line_ISO_14230-4-KWP(Citroen_C5_2003).JPG?raw=true)
 ![Citroen2](https://github.com/martinhol221/ISO14230-4-KWP/blob/master/L9637%2BAduino.jpg?raw=true)
 ![Citroen](https://github.com/martinhol221/ISO14230-4-KWP/blob/master/L9637D%2BAduino.jpg?raw=true)
-https://www.drive2.ru/c/479335393737572613/
+
