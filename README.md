@@ -34,7 +34,4 @@ Example of an Arduino sketch for reading data from the K-line of the ODB car tir
 2. Intake manifold air temperature
 3. The number of revolutions per engine
 4. Vehicle speed
-
-![Citroen](https://github.com/martinhol221/ISO14230-4-KWP/blob/master/K-Line_ISO_14230-4-KWP(Citroen_C5_2003).JPG?raw=true)
-![Citroen2](https://github.com/martinhol221/ISO14230-4-KWP/blob/master/L9637%2BAduino.jpg?raw=true)
-![Citroen](https://github.com/martinhol221/ISO14230-4-KWP/blob/master/L9637D%2BAduino.jpg?raw=true)
+https://www.drive2.ru/c/479335393737572613/
